@@ -1,0 +1,55 @@
+- id: 'xxxxxxxxxxxx'
+  alias: TP Link Hardware switch
+  description: Switch on TP Link smart switch from M5StickC
+  trigger:
+  - platform: state
+    entity_id: switch.dummy_toggle
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: xxxxxxxxxxxxxxxxxxxx
+    entity_id: switch.loft
+    domain: switch
+  mode: single
+- id: 'xxxxxxxxxxxx'
+  alias: TP Link off Harware switch
+  description: 'Switch off TP Link smart switch from M5StickC'
+  trigger:
+  - platform: state
+    entity_id: switch.dummy_toggle
+    to: 'off'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: xxxxxxxxxxxxxxxxxxxx
+    entity_id: switch.loft
+    domain: switch
+  mode: single
+- id: 'xxxxxxxxxxxx'
+  alias: Set dummy toggle to tp link status off
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: xxxxxxxxxxxxxxxxxxxx
+    entity_id: switch.loft
+    domain: switch
+  condition: []
+  action:
+  - type: turn_off
+    device_id: xxxxxxxxxxxxxxxxxxxx
+    entity_id: switch.dummy_toggle
+    domain: switch
+  mode: single
+- id: 'xxxxxxxxxxxx'
+  alias: set dumy toggle to tp link status on
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: xxxxxxxxxxxxxxxxxxxx
+    entity_id: switch.loft
+    domain: switch
+  condition: []
+  action:
