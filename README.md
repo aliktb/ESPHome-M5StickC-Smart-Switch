@@ -13,9 +13,9 @@ The power symbol reflects the state of the 'dummy_toggle' template switch. This 
 4. Append the Home Assistant automations.yaml config file with the automations from the file in this repository. Modify the automations for your devices
 
 # Credits
-Based on this project found in ESPhome's cookbook : https://esphome.io/cookbook/leak-detector-m5stickc
-Learn more about ESPhome: https://esphome.io/index.html
-Learn more about Home Assistant: https://www.home-assistant.io/
+- Based on this project found in ESPhome's cookbook : https://esphome.io/cookbook/leak-detector-m5stickc
+- Learn more about ESPhome: https://esphome.io/index.html
+- Learn more about Home Assistant: https://www.home-assistant.io/
 
 # Issues
 Flag any issues you find by using the [Issue tracker](https://github.com/aliktb/ESPHome-M5StickC-Smart-Switch/issues)
