@@ -10,7 +10,8 @@ The power symbol reflects the state of the 'dummy_toggle' template switch. This 
 1. Copy custom files to corresponding direectories within ESPhome. Both axp192 and st7735 folders are needed for the M5Stick-C to operate.
 2. If using ENV hat make sure I2C is enabled. If not, omit the I2C, dht12 and bmp280 entries in the ESPHome config yaml
 3. Flash a M5StickC with the esphome yaml configuration. The name is 'node_4' but this can be renamed. 
-4. Append the Home Assistant automations.yaml config file with the automations from the file in this repository. Modify the automations for your devices
+4. Append the Home Assistant automations.yaml config file with the automations from the file in this repository. Modify the automations for your devices. The example uses a TP Link HS100 Smart plug as the switch controlled by the M5StickC.
+5. Change the layout of the LCD as you wish and enjoy!
 
 # Credits
 - Based on this project found in ESPhome's cookbook : https://esphome.io/cookbook/leak-detector-m5stickc
