@@ -3,7 +3,7 @@ Simple toggle switch for ESPHome and HomeAssistant using M5StickC and optional E
 
 The power symbol reflects the state of the 'dummy_toggle' template switch. This will update with the button press without intervention of Home Assistant in case of a loss in connection. This is to let the user know what state the ESP device thinks the state is. Once the automation runs on Home assistant, the switch/light associated with the automation will change state and the built-in LCD of the M5 will change to 'OFF' or 'ON' respectively. There may be a tiny delay while this happens depending on your Home Assistant's Hardware and add-ons or docker containers etc.  
 
-#Usage
+# Usage
 1. Copy custom files to corresponding direectories within ESPhome. Both axp192 and st7735 folders are needed for the M5Stick-C to operate.
 2. If using ENV hat make sure I2C is enabled. If not, omit the I2C, dht12 and bmp280 entries in the ESPHome config yaml
 3. Flash a M5StickC with the esphome yaml configuration. The name is 'node_4' but this can be renamed. 
