@@ -15,4 +15,4 @@ Learn more about ESPhome: https://esphome.io/index.html
 Learn more about Home Assistant: https://www.home-assistant.io/
 
 # Issues
-Flag any issues you find
+Flag any issues you find by using the [Issue tracker](https://github.com/aliktb/ESPHome-M5StickC-Smart-Switch/issues)
