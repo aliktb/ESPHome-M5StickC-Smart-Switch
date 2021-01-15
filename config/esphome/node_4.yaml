@@ -1,0 +1,186 @@
+esphome:
+  name: node_4
+  platform: ESP32
+  board: m5stick-c
+  includes:
+    - custom_components/st7735/st7735.h
+  platformio_options:
+    upload_speed: 115200
+
+wifi:
+  ssid: "WIFI_SSID"
+  password: "WIFI_PASSWORD"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+
+
+  ap:
+    ssid: "Node 4 Fallback Hotspot"
+    password: "yA7ZHnOAZPtT"
+
+captive_portal:
+
+
+font:
+  - file: 'arial.ttf'
+    id: font1
+    size: 66
+  - file: 'arial.ttf'
+    id: font2
+    size: 10
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+i2c:
+   - id: bus_a
+     sda: GPIO21
+     scl: GPIO22
+     scan: True
+
+   - id: bus_b
+     sda: GPIO0
+     scl: GPIO26
+     scan: True
+
+spi:
+  clk_pin: GPIO13
+  mosi_pin: GPIO15
+
+sensor:
+  - platform: uptime
+    name: "${friendly_name} Uptime"
+
+    # AXP192 power management - must be present to initialize TFT power on
+  - platform: axp192
+    address: 0x34
+    i2c_id: bus_a
+    update_interval: 30s
+    battery_level:
+      name: "${friendly_name} Battery Level"
+      id: "m5stick_batterylevel"
+
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
+    id: wifi_strength
+
+  - platform: dht12
+    i2c_id: bus_b
+    temperature:
+      name: "Landing Temperature"
+    humidity:
+      name: "Landing Humidity"
+    update_interval: 15s
+
+  - platform: bmp280
+    i2c_id: bus_b
+    address: 0x76
+    temperature:
+      name: "Landing Temperature bmp"
+    pressure:
+      name: "Landing Pressure bmp"
+    update_interval: 15s
+
+
+image:
+  - file: "power_red_20.png"
+    id: red_power
+    type: RGB24
+
+  - file: "power_green_20.png"
+    id: green_power
+    type: RGB24
+
+  - file: "wifi-symbol.png"
+    id: wifi_symbol
+    type: RGB24
+    resize: 10x10
+
+
+display:
+  - platform: st7735
+    id: screen
+    cs_pin: GPIO5
+    dc_pin: GPIO23
+    reset_pin: GPIO18
+    rotation: 270
+    lambda: |-
+
+
+        if(isnan(id(wifi_strength).state) == 0){
+
+          it.printf(30, 0, id(font2), ST77XX_WHITE, TextAlign::TOP_LEFT, "%.1fdB", id(wifi_strength).state);
+          it.image(10, 0, id(wifi_symbol));
+
+
+        }
+
+
+
+
+        it.printf(it.get_width()*0.95, 0, id(font2), ST77XX_WHITE, TextAlign::TOP_RIGHT, "%.1f", id(m5stick_batterylevel).state);
+
+        if(id(tp_link_switch).state){
+
+          it.image(135, it.get_height()*0.3, id(green_power));
+
+
+        }
+
+        else if(id(tp_link_switch).state == 0){
+
+          it.image(135, it.get_height()*0.3, id(red_power));
+
+
+
+        }
+
+        if(id(dummy_toggle).state){
+
+          it.printf(0, it.get_height()*0.15, id(font1), ST77XX_GREEN, TextAlign::TOP_LEFT, "ON");
+        }
+
+        else{
+
+          it.printf(0, it.get_height()*0.15, id(font1), ST77XX_RED, TextAlign::TOP_LEFT, "OFF");
+        }
+
+
+
+
+switch:
+  - platform: template
+    name: dummy toggle
+    id: dummy_toggle
+    assumed_state: false
+    optimistic: true
+
+
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO37
+      inverted: true
+    filters:
+      - delayed_on: 10ms
+    internal: true
+    id: button_a
+
+    on_click:
+      min_length: 50ms
+      max_length: 700ms
+      then:
+        - switch.toggle: dummy_toggle
+
+
+  - platform: homeassistant
+    name: "TP Link Smart Switch Status From Home Assistant"
+    entity_id: switch.loft
+    id: tp_link_switch
