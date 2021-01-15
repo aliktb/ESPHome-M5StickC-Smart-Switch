@@ -1,6 +1,9 @@
 # ESPHome-M5StickC-Smart-Switch
 Simple toggle switch for ESPHome and HomeAssistant using M5StickC and optional ENV sensor hat. Control a switch, light, group of devices or run any automation with the press of a button. The automation and config yaml files allow the M5StickC to toggle between an 'ON' and 'OFF' state. The state of the button will be updated in Home Assistant. Also, if the state of the switch is changed from another device or via the Home Assistant front-end, the M5StickC's status will also change to reflect the status of the switch.
 
+![Switch in OFF state](https://github.com/aliktb/ESPHome-M5StickC-Smart-Switch/blob/main/switch_off.jpg)
+![Switch in ON state](https://github.com/aliktb/ESPHome-M5StickC-Smart-Switch/blob/main/switch_on.jpg)
+
 The power symbol reflects the state of the 'dummy_toggle' template switch. This will update with the button press without intervention of Home Assistant in case of a loss in connection. This is to let the user know what state the ESP device thinks the state is. Once the automation runs on Home assistant, the switch/light associated with the automation will change state and the built-in LCD of the M5 will change to 'OFF' or 'ON' respectively. There may be a tiny delay while this happens depending on your Home Assistant's Hardware and add-ons or docker containers etc.  
 
 # Usage
